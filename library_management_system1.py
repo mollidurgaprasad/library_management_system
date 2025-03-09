@@ -3,7 +3,7 @@ import tkinter as tk
 from tkinter import messagebox, ttk
 from datetime import datetime
 
-# Database connection
+
 conn = sqlite3.connect("library.db")
 cursor = conn.cursor()
 cursor.execute('''
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS books (
 conn.commit()
 conn.close()
 
-# Function to add a book
+
 def add_book():
     book_name = book_name_entry.get()
     author = author_entry.get()
@@ -37,7 +37,7 @@ def add_book():
     messagebox.showinfo("Success", "Book Added Successfully")
     view_books()
 
-# Function to view books
+
 def view_books():
     for item in tree.get_children():
         tree.delete(item)
@@ -51,7 +51,7 @@ def view_books():
     for row in rows:
         tree.insert("", "end", values=row)
 
-# Function to delete a book
+
 def delete_book():
     selected_item = tree.selection()
     if not selected_item:
@@ -69,7 +69,7 @@ def delete_book():
     messagebox.showinfo("Success", "Book Deleted Successfully")
     view_books()
 
-# Function to issue a book
+
 def issue_book():
     selected_item = tree.selection()
     if not selected_item:
@@ -95,12 +95,12 @@ def issue_book():
     messagebox.showinfo("Success", "Book Issued Successfully")
     view_books()
 
-# UI Setup
+
 root = tk.Tk()
 root.title("Library Management System")
 root.geometry("1000x600")
 
-# Book Details
+
 book_name_label = tk.Label(root, text="Book Name:")
 book_name_label.pack()
 book_name_entry = tk.Entry(root)
@@ -114,7 +114,7 @@ author_entry.pack()
 add_button = tk.Button(root, text="Add Book", command=add_book)
 add_button.pack()
 
-# Treeview with gradual column expansion
+
 columns = ["ID", "Book Name", "Author", "Issued By", "Issue Date", "Due Date"]
 tree = ttk.Treeview(root, columns=columns, show="headings")
 
@@ -122,7 +122,7 @@ for i, col in enumerate(columns):
     tree.heading(col, text=col)
     tree.column(col, width=0)
 
-# Function to expand columns one by one
+
 def expand_columns():
     for i in range(len(columns)):
         tree.column(columns[i], width=150)
@@ -138,7 +138,6 @@ view_button.pack()
 delete_button = tk.Button(root, text="Delete Book", command=delete_book)
 delete_button.pack()
 
-# Issue Book Section
 issued_by_label = tk.Label(root, text="Issued By:")
 issued_by_label.pack()
 issued_by_entry = tk.Entry(root)
